@@ -1,0 +1,6 @@
+####################
+Server enviorment local
+Database connection  
+####################
+18:16:49 [32mGET[39m /
+18:16:49 [32mGET[39m /favicon.ico
