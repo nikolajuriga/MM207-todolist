@@ -1,10 +1,14 @@
-import 'dotenv/config'
+import dotenv from 'dotenv'
 import express from 'express' // Express is installed using npm
 import USER_API from './routes/usersRoute.mjs'; // This is where we have defined the API for working with users
+import TODO_API from './routes/todoRoute.mjs';
 import SuperLogger from './modules/SuperLogger.mjs';
-import printDeveloperStartupInportantInformationMSG from "./modules/developerHelpers.mjs";
+import printDeveloperStartupImportantInformationMSG from "./modules/developerHelpers.mjs";
+import AuthorizationManager from './modules/authorizationManager.mjs'; 
 
-printDeveloperStartupInportantInformationMSG();
+dotenv.config();
+
+printDeveloperStartupImportantInformationMSG();
 
 
 // Creating an instance of the server
@@ -18,18 +22,14 @@ server.set('port', port);
 const logger = new SuperLogger();
 server.use(logger.createAutoHTTPRequestLogger()); // Will logg all http method requests
 
-
-// Defining a folder that will contain static files.
 server.use(express.static('public'));
 
-// Telling the server to use the USER_API (all urls that uses this code will have to have the /user after the base address)
+const authManager = new AuthorizationManager();
+server.use("/login", express.json());
+server.use("/login", authManager.login);
+server.use("/user", authManager.hasUserRole);
 server.use("/user", USER_API);
-
-// A get request handler example)
-server.get("/", (req, res, next) => {
-    res.status(200).send(JSON.stringify({ msg: "These are not the droids...." })).end();
-});
-
+server.use("/todo", TODO_API);
 
 
 // Start the server 

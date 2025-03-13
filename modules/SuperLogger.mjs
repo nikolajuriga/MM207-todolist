@@ -27,13 +27,13 @@ const colorize = (method) => {
 
 class SuperLogger {
 
-    // These are arbetrary values to make it possible for us to sort our logg messages. 
+    // These are arbitrary values to make it possible for us to sort our logg messages. 
     static LOGGING_LEVELS = {
         ALL: 0,         // We output everything, no limits
         VERBOSE: 5,     // We output a lott, but not 
         NORMAL: 10,     // We output a moderate amount of messages
         IMPORTANT: 100, // We output just siginfican messages
-        CRTICAL: 999    // We output only errors. 
+        CRITICAL: 999    // We output only errors. 
     };
 
     // What level of messages should we be logging.
@@ -53,7 +53,7 @@ class SuperLogger {
     static instance = null;
 
     constructor() {
-        // This constructor will allways return a refrence to the first instance created. 
+        // This constructor will always return a reference to the first instance created. 
         if (SuperLogger.instance == null) {
             SuperLogger.instance = this;
             this.#loggers = [];
@@ -63,10 +63,10 @@ class SuperLogger {
     }
     //#endregion
 
-    static log(msg, logLevl = SuperLogger.LOGGING_LEVELS.NORMAL) {
+    static log(msg, logLevel = SuperLogger.LOGGING_LEVELS.NORMAL) {
 
         let logger = new SuperLogger();
-        if (logger.#globalThreshold > logLevl) {
+        if (logger.#globalThreshold > logLevel) {
             return;
         }
 
@@ -75,7 +75,7 @@ class SuperLogger {
 
 
     // This is our automatic logger, it outputs at a "normal" level
-    // It is just a convinent wrapper around the more generic createLimitedRequestLogger function
+    // It is just a continent wrapper around the more generic createLimitedRequestLogger function
     createAutoHTTPRequestLogger() {
         return this.createLimitedHTTPRequestLogger({ threshold: SuperLogger.LOGGING_LEVELS.NORMAL });
     }
@@ -95,7 +95,7 @@ class SuperLogger {
                 return;
             }
 
-            // Finaly we parse our request on to the method that is going to writ the log msg.
+            // Finally we parse our request on to the method that is going to writ the log msg.
             this.#LogHTTPRequest(req, res, next);
         }
 

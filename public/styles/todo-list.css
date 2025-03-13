@@ -1,0 +1,131 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+.todo-list-wrapper {
+  position: relative;
+  max-width: 1024px;
+  width: 100%;
+  background: #fff;
+  padding: 20px;
+  border-radius: 6px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  margin: auto;
+  overflow-x: auto;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 15px;
+  font-size: 22px;
+  font-weight: 600;
+  color: #333;
+}
+
+/* Tabell styling */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+thead {
+  background: #4070f4;
+  color: white;
+}
+
+th, td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+th {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+td.id{
+  display: none;
+}
+
+tbody tr:hover {
+  background: #f1f1f1;
+}
+
+tfoot {
+  font-weight: bold;
+  text-align: center;
+  padding: 10px;
+  background: #f8f9fa;
+}
+
+.no-todos {
+  text-align: center;
+  font-size: 16px;
+  padding: 20px;
+  color: #777;
+}
+
+/* Status styling */
+.todo-status {
+  font-size: 14px;
+  font-weight: bold;
+  padding: 4px 8px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.status-pending {
+  background-color: #ffc107;
+  color: #333;
+}
+
+.status-completed {
+  background-color: #28a745;
+  color: white;
+}
+
+.status-cancelled {
+  background-color: #dc3545;
+  color: white;
+}
+
+.button-new-todo{
+  width: 40px;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 20px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.new-todo-img{
+  width: 44px;
+  height: 44px;
+  margin-right: 5px;
+}
+
+/* Styling for delete-ikonet */
+.tool-box-del {
+    width: 18px;  /* Reduserer størrelsen */
+    height: 18px;
+    cursor: pointer;  /* Gjør det klikkbart */
+    transition: transform 0.2s ease-in-out;
+    display: block; /* Hindrer rare marginer */
+    margin: auto;  /* Sentrerer bildet inne i cellen */
+  }
+  
+  .tool-box-del:hover {
+    transform: scale(1.2); /* Gjør bildet litt større ved hover */
+    opacity: 0.8;
+  }

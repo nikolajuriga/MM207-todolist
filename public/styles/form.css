@@ -1,0 +1,115 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Wrapper for skjema */
+.wrapper{
+  position: relative;
+  max-width: 430px;
+  width: 100%;
+  background: #fff;
+  padding: 34px;
+  border-radius: 6px;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+}
+
+.wrapper h2{
+  position: relative;
+  font-size: 22px;
+  font-weight: 600;
+  color: #333;
+}
+
+.wrapper h2::before{
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  width: 28px;
+  border-radius: 12px;
+  background: #4070f4;
+}
+
+.wrapper form{
+  margin-top: 30px;
+}
+
+/* Generelle input-bokser */
+.wrapper form .input-box{
+  margin: 18px 0;
+}
+
+form .input-box input, 
+form .input-box textarea {
+  width: 100%;
+  padding: 12px;
+  font-size: 17px;
+  font-weight: 400;
+  color: #333;
+  border: 1.5px solid #C7BEBE;
+  border-bottom-width: 2.5px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.input-box input:focus,
+.input-box input:valid,
+.input-box textarea:focus,
+.input-box textarea:valid{
+  border-color: #4070f4;
+}
+
+/* Spesifikk styling for todo-form */
+.todo-form .input-box label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px; /* Mer avstand mellom label og input */
+}
+
+/* Øker avstand mellom labels og input-felt for dato */
+.todo-form .input-box input[type="datetime-local"] {
+  padding: 10px;
+}
+
+/* Gjør beskrivelse like stor som tittel-feltet */
+.todo-form .input-box textarea {
+  height: 52px; /* Samme høyde som input-feltene */
+  resize: none; /* Hindrer at brukeren endrer størrelse */
+}
+
+/* Knapp */
+.input-box.button button{
+  width: 100%;
+  height: 52px;
+  display: table-cell;
+  color: #fff;
+  letter-spacing: 1px;
+  border: none;
+  background: #4070f4;
+  cursor: pointer;
+}
+
+.input-box.button button:hover{
+  background: #0e4bf1;
+}
+
+form .text h3{
+ color: #333;
+ width: 100%;
+ text-align: center;
+}
+
+form .text h3 a{
+  color: #4070f4;
+  text-decoration: none;
+}
+
+form .text h3 a:hover{
+  text-decoration: underline;
+}

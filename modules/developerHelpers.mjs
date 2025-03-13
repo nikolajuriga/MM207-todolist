@@ -1,22 +1,24 @@
 import SuperLogger from "./SuperLogger.mjs";
 import chalk from "chalk";
 
-export default function printDeveloperStartupInportantInformationMSG() {
+export default function printDeveloperStartupImportantInformationMSG() {
 
     drawLine("#", 20);
 
-    SuperLogger.log(`Server enviorment ${process.env.ENVIORMENT}`, SuperLogger.LOGGING_LEVELS.CRTICAL);
+    SuperLogger.log(`Server environment ${process.env.ENVIRONMENT}`, SuperLogger.LOGGING_LEVELS.CRITICAL);
 
-    if (process.env.ENVIORMENT == "local") {
-        SuperLogger.log(`Database connection  ${process.env.DB_CONNECTIONSTRING_LOCAL}`, SuperLogger.LOGGING_LEVELS.CRTICAL);
+    if (process.env.ENVIRONMENT == "local") {
+        SuperLogger.log(`Database connection  ${process.env.DB_CONNECTION_STRING_LOCAL}`, SuperLogger.LOGGING_LEVELS.CRITICAL);
     } else {
-        SuperLogger.log(`Database connection  ${process.env.DB_CONNECTIONSTRING_LOCAL}`, SuperLogger.LOGGING_LEVELS.CRTICAL);
+        SuperLogger.log(`Database connection  ${process.env.DB_CONNECTION_STRING_LOCAL}`, SuperLogger.LOGGING_LEVELS.CRITICAL);
     }
 
     if (process.argv.length > 2) {
         if (process.argv[2] == "--setup") {
-            SuperLogger.log(chalk.red("Runing setup for database"), SuperLogger.LOGGING_LEVELS.CRTICAL);
-            // TODO: Code that would set up our database with tbls etc..
+            SuperLogger.log(chalk.red("Runing setup for database"), SuperLogger.LOGGING_LEVELS.CRITICAL);
+            // TODO: Code that would set up our database with tables etc..
+            // I have done this with the files in the sql folder.
+            // And with the postgres extension for VSCode.
         }
     }
 
@@ -24,6 +26,6 @@ export default function printDeveloperStartupInportantInformationMSG() {
 
 }
 
-function drawLine(symbole, length) {
-    SuperLogger.log(symbole.repeat(length), SuperLogger.LOGGING_LEVELS.CRTICAL);
+function drawLine(symbol, length) {
+    SuperLogger.log(symbol.repeat(length), SuperLogger.LOGGING_LEVELS.CRITICAL);
 }

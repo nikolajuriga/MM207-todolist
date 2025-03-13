@@ -2,50 +2,181 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My app</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My app</title>
+  <link rel="icon" href="./favicon.ico" type="image/x-icon" />
+  <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="./styles/site.css" />
+  <link rel="stylesheet" href="./styles/menu.css" />
+
 </head>
 
-
 <body>
-
-    <div>
-        Name : <input type="text" id="name"><br>
-        Email: <input type="email" id="email"><br />
-        Password: <input type="password" id="pswHash"><br />
-        <button id="createUserButton">Create User</button>
+  <section id="headContent" class="header-content"></section>
+  <section id="bodyContent" class="body-content"></section>
+  <section id="footContent" class="foot-content">
+    <div class="logo">
+      <img src="./media/logo.png" alt="Logo" height="90%" />
+      &copy; Nikola&nbsp;|&nbsp;MM-207&nbsp;|&nbsp;2025
     </div>
+  </section>
 
-    <script>
+  <template id="new-user-template">
+    <div class="wrapper">
+      <h2>Registration</h2>
+      <form id="createUserForm" , method="POST" , action="/user">
+        <div class="input-box">
+          <input type="text" name="fullName" autocomplete="name" placeholder="Enter your name" required />
+        </div>
+        <div class="input-box">
+          <input type="text" name="email" autocomplete="email" placeholder="Enter your email" required />
+        </div>
+        <div class="input-box">
+          <input type="password" name="password" autocomplete="new-password" placeholder="Create password" required />
+        </div>
+        <div class="input-box">
+          <input type="password" name="password" autocomplete="new-password" placeholder="Confirm password" required />
+        </div>
+        <div class="policy">
+          <input type="checkbox" id="policy" required />
+          <h3>I accept all terms & condition</h3>
+        </div>
+        <div class="input-box button">
+          <button id="buttonCreateUser">Create Account</button>
+        </div>
+        <div class="text">
+          <h3>Already have an account? <a href="#" id="buttonLoginUser">Login now</a></h3>
+        </div>
+      </form>
+    </div>
+  </template>
 
-        const createUserButton = document.getElementById("createUserButton");
+  <template id="login-user-template">
+    <div class="wrapper">
+      <h2>Login</h2>
+      <form id="loginUserForm" , method="POST" , action="/login">
+        <div class="input-box">
+          <input type="text" name="email" autocomplete="email" placeholder="Enter your email" required />
+        </div>
+        <div class="input-box">
+          <input type="password" name="password" autocomplete="current-password" placeholder="Enter your password"
+            required />
+        </div>
+        <div class="input-box button">
+          <button id="buttonLoginUser">Login</button>
+        </div>
+        <div class="text">
+          <h3>Don't have an account? <a href="#" id="buttonCreateUser">Create Account</a></h3>
+        </div>
+      </form>
+    </div>
+  </template>
 
-        createUserButton.onclick = async function (e) {
+  <!-- Modal template for error messages -->
+  <template id="modal-error-template">
+    <div class="modal">
+      <div class="modal-content">
+        <p id="error-message">Message goes here!</p>
+        <img class="close-button" src="./media/close-icon.png" alt="Close" />
+      </div>
+    </div>
+  </template>
 
-            const name = document.getElementById("name").value;
-            const email = document.getElementById("email").value;
-            const pswHash = document.getElementById("pswHash").value;
-            const user = { name, email, pswHash };
-            const respon = await postTo("/user", user);
+  <!-- Menu template for User-->
+  <template id="menu-user-template">
+    <nav class="circle">
+      <ul>
+        <li id="buttonTodoList"><a href="#">Todo List</a></li>
+        <li id="buttonMyInfo"><a href="#">My Info</a></li>
+        <li id="buttonLogout"><a href="#">Log out</a></li>
+      </ul>
+    </nav>
+  </template>
 
-        }
+  <!-- Menu template for User-->
+  <template id="menu-admin-template">
+    <nav class="circle">
+      <ul>
+        <li id="buttonTodoList"><a href="#">Todo List</a></li>
+        <li id="buttonMyInfo"><a href="#">My Info</a></li>
+        <li id="buttonUsers"><a href="#">Users</a></li>
+        <li id="buttonLogout"><a href="#">Log out</a></li>
+      </ul>
+    </nav>
+  </template>
 
-        async function postTo(url, data) {
-            const header = {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(data),
-            };
+  <!-- Menu template for ny Todo-List-Item -->
+  <template id="new-todo-template">
+    <div class="wrapper">
+      <h2>To-Do Item</h2>
+      <form id="createTodoForm" method="POST" action="/todo">
+        <input type="hidden" name="_method" value="POST" />
+        <input type="hidden" name="id" value="" />
+        <div class="input-box">
+          <input type="text" name="title" placeholder="Enter Todo Title" required />
+        </div>
+        <div class="input-box">
+          <textarea name="description" placeholder="Enter Todo Description" required></textarea>
+        </div>
+        <div class="input-box">
+          <label for="startDateTime">Start Date & Time</label>
+          <input type="datetime-local" name="startDateTime" required />
+        </div>
+        <div class="input-box">
+          <label for="endDateTime">End Date & Time (optional)</label>
+          <input type="datetime-local" name="endDateTime" />
+        </div>
+        <div class="input-box button">
+          <button type="submit" id="buttonCreateTodo">Create Todo</button>
+        </div>
+      </form>
+    </div>
+  </template>
 
-            const respon = await fetch(url, header);
-            return respon;
-        }
+  <!-- Menu template for Todo-List -->
+  <template id="todo-list-template">
+    <div class="todo-list-wrapper">
+      <h2>My To-Do List</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Start Date & Time</th>
+            <th>End Date & Time</th>
+            <th>Status</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+        <tfoot>
+          <tr>
+            <td colspan="5">Total Todos: <span id="todoCount">0</span></td>
+          </tr>
+        </tfoot>
+      </table>
+      <div class="button button-new-todo" id="buttonNewTodo">
+        <img class="new-todo-img" src="./media/plus.png" alt="Add" id="buttonNewTodo" />
+    </div>
+  </template>
 
-    </script>
+  <!-- Menu template for Todo-List Item -->
+   <template id="todo-list-item-template">
+    <tr>
+      <td class="id"></td>
+      <td class="title"></td>
+      <td class="description"></td>
+      <td class="startDateTime"></td>
+      <td class="endDateTime"></td>
+      <td class="status"></td>
+      <td class="toolBox"></td>
+    </tr>
+  </template>
+  
 
+
+  <script src="./scripts/index.js" type="module" defer></script>
 </body>
 
 </html>
